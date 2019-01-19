@@ -9,57 +9,36 @@
 import UIKit
 import CoreText
 
-private func deallocate(_ point:UnsafeMutableRawPointer) -> Void {
-  
-  print(point)
-}
-
-private func getAscent(_ point:UnsafeMutableRawPointer) -> CGFloat {
-  
-  let dic = point.load(as: [String:Int].self)
-  
-  if let value = dic["height"] {
-    
-    return CGFloat(value)
-  }
-  
-  return  0
-}
-
-private func getDescent(_ point:UnsafeMutableRawPointer) -> CGFloat {
-  
-  return 0
-}
-
-private func getWidth(_ point:UnsafeMutableRawPointer) -> CGFloat {
-  
-  let dic = point.load(as: [String:Int].self)
-  
-  if let value = dic["height"] {
-    
-    return CGFloat(value)
-  }
-  
-  return 0
-}
-
 class RTView: UIView, UITextInput {
+  
+  var selectedRange = NSRange(location: 0, length: 0)
+  
+  var markedRange = NSRange(location: 0, length: 0)
+  
+  var textInputeDelegate:UITextInputDelegate?
+  
+  override var canBecomeFirstResponder: Bool {
+    
+    return true
+  }
   
   override func awakeFromNib() {
     
     super.awakeFromNib()
-  }
-  
-  private var textInputTokenizer:UITextInputStringTokenizer!
-  
-  required init?(coder aDecoder: NSCoder) {
     
-    super.init(coder: aDecoder)
+    self.isUserInteractionEnabled = true
     
     textInputTokenizer = UITextInputStringTokenizer(textInput: self)
     
     self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(doTap(_:))))
   }
+  
+  override func resignFirstResponder() -> Bool {
+    
+    return super.resignFirstResponder()
+  }
+  
+  private var textInputTokenizer:UITextInputStringTokenizer!
   
   @objc
   func doTap(_ sender:UITapGestureRecognizer) -> Void {
@@ -73,21 +52,10 @@ class RTView: UIView, UITextInput {
     else {
       
       self.becomeFirstResponder()
-      
-      self.inputDelegate?.textWillChange(self)
-      
-      self.inputDelegate?.textDidChange(self)
     }
   }
   
-  override init(frame: CGRect) {
-    
-    super.init(frame: frame)
-    
-    textInputTokenizer = UITextInputStringTokenizer(textInput: self)
-  }
-  
-  var text:NSMutableAttributedString = NSMutableAttributedString(string: "这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本这是富文本")
+  var text = NSMutableString(string: "")
 
   var hasText: Bool {
     
@@ -106,6 +74,11 @@ class RTView: UIView, UITextInput {
     print("deleteBackward")
   }
   
+  var textInputView: UIView {
+    
+    return self
+  }
+  
   func text(in range: UITextRange) -> String? {
     
     return nil
@@ -113,35 +86,88 @@ class RTView: UIView, UITextInput {
   
   func replace(_ range: UITextRange, withText text: String) {
     
-    return
+    guard let range = (range as? RTTextRange)?.range else {
+      
+      return
+    }
+    
+    self.text.replaceCharacters(in: range, with: text)
   }
   
-  var selectedTextRange: UITextRange?
+  var selectedTextRange: UITextRange? {
+    
+    get {
+    
+      return RTTextRange.indexedRangeWithRange(self.selectedRange)
+    }
+    
+    set(newRange) {
+      
+      if let range = (newRange as? RTTextRange)?.range {
+        
+        self.selectedRange = range
+      }
+    }
+  }
   
-  var markedTextRange: UITextRange?
+  var markedTextRange: UITextRange? {
+    
+    if markedRange.length == 0 || markedRange.location == NSNotFound {
+      
+      return nil
+    }
+    
+    return RTTextRange.indexedRangeWithRange(markedRange)
+  }
   
   var markedTextStyle: [NSAttributedString.Key : Any]?
   
   func setMarkedText(_ markedText: String?, selectedRange: NSRange) {
     
-    print("setMarkedText")
+    print(markedText, selectedRange)
     
-    return
+    guard let text = markedText else {
+      
+      return
+    }
+    
+    if markedRange.location != NSNotFound {
+      
+      self.text.replaceCharacters(in: markedRange, with: text)
+      
+      markedRange.length = text.count
+    }
+    else if self.selectedRange.length != 0 {
+      
+      self.text.replaceCharacters(in: selectedRange, with: text)
+      
+      markedRange = NSRange(location: self.selectedRange.location, length: text.count)
+    }
+    else {
+      
+      self.text.insert(text, at: self.selectedRange.location)
+      
+      markedRange = NSRange(location: self.selectedRange.location, length: text.count)
+    }
+    
+    self.selectedRange = NSRange(location: selectedRange.location + markedRange.location, length: selectedRange.length)
+    
+    setNeedsDisplay()
   }
   
   func unmarkText() {
     
-    print("unmarkText")
+    markedRange.location = NSNotFound
   }
   
   var beginningOfDocument: UITextPosition {
     
-    return RTTextPosition()
+    return RTTextPosition.positionWithIndex(0)
   }
   
   var endOfDocument: UITextPosition {
     
-    return RTTextPosition()
+    return RTTextPosition.positionWithIndex(self.text.length)
   }
   
   func textRange(from fromPosition: UITextPosition, to toPosition: UITextPosition) -> UITextRange? {
@@ -193,7 +219,7 @@ class RTView: UIView, UITextInput {
   
   func setBaseWritingDirection(_ writingDirection: UITextWritingDirection, for range: UITextRange) {
     
-    
+    return
   }
   
   func firstRect(for range: UITextRange) -> CGRect {
@@ -231,7 +257,7 @@ class RTView: UIView, UITextInput {
     
     let ctx = getCtx()
    
-    let mutablestring = self.text
+    let mutablestring = NSAttributedString(string: self.text as String)
   
     let frameSetter = CTFramesetterCreateWithAttributedString(mutablestring)
     
@@ -291,8 +317,6 @@ class RTView: UIView, UITextInput {
   func getCtx() -> CGContext {
     
     let ctx = UIGraphicsGetCurrentContext()
-    
-    print(self.bounds.size)
     
     ctx?.translateBy(x: 0, y: self.bounds.size.height)
     

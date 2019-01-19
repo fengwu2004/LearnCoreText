@@ -16,6 +16,11 @@ class RTTextRange: UITextRange {
     
     let rtrange = RTTextRange()
     
+    if range.location == NSNotFound {
+      
+      print("not found")
+    }
+    
     rtrange.range = range
     
     return rtrange
@@ -27,6 +32,11 @@ class RTTextRange: UITextRange {
   }
   
   override var end: UITextPosition {
+    
+    if range.location == NSNotFound {
+      
+      print("not found")
+    }
     
     return RTTextPosition.positionWithIndex(range.location + range.length)
   }

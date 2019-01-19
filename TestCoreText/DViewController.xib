@@ -16,11 +16,26 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="RTView" customModule="TestCoreText" customModuleProvider="target">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7D-R1-jEj" customClass="RTView" customModule="TestCoreText" customModuleProvider="target">
+                    <rect key="frame" x="53.5" y="176" width="268" height="335"/>
+                    <color key="backgroundColor" red="0.0" green="0.52941176469999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="335" id="k4Q-ia-4b8"/>
+                        <constraint firstAttribute="width" constant="268" id="kjW-TV-Jd2"/>
+                    </constraints>
+                </view>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="v7D-R1-jEj" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="cmP-iA-sPT"/>
+                <constraint firstItem="v7D-R1-jEj" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="wXF-Fx-pNh"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>
 </document>

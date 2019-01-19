@@ -19,6 +19,9 @@
 		2CF3C3BA21F0778900EB5448 /* RTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3B921F0778900EB5448 /* RTView.swift */; };
 		2CF3C3BC21F1BBF200EB5448 /* RTTextPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3BB21F1BBF100EB5448 /* RTTextPosition.swift */; };
 		2CF3C3BE21F1BC1200EB5448 /* RTTextRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3BD21F1BC1200EB5448 /* RTTextRange.swift */; };
+		2CF3C3C121F2EA0700EB5448 /* APLSimpleCaretView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3C021F2EA0700EB5448 /* APLSimpleCaretView.m */; };
+		2CF3C3C421F2EA1F00EB5448 /* APLSimpleCoreTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3C221F2EA1F00EB5448 /* APLSimpleCoreTextView.m */; };
+		2CF3C3C621F3387300EB5448 /* RTInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3C3C521F3387300EB5448 /* RTInputManager.swift */; };
 		2CF8618321ECC23300FC0845 /* TextViewVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8618121ECC23300FC0845 /* TextViewVCViewController.swift */; };
 		2CF8618421ECC23300FC0845 /* TextViewVCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF8618221ECC23300FC0845 /* TextViewVCViewController.xib */; };
 		2CF861AC21EDD4CC00FC0845 /* CTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF861AB21EDD4CC00FC0845 /* CTView.swift */; };
@@ -42,6 +45,11 @@
 		2CF3C3B921F0778900EB5448 /* RTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTView.swift; sourceTree = "<group>"; };
 		2CF3C3BB21F1BBF100EB5448 /* RTTextPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTTextPosition.swift; sourceTree = "<group>"; };
 		2CF3C3BD21F1BC1200EB5448 /* RTTextRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTTextRange.swift; sourceTree = "<group>"; };
+		2CF3C3BF21F2EA0700EB5448 /* APLSimpleCaretView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLSimpleCaretView.h; sourceTree = "<group>"; };
+		2CF3C3C021F2EA0700EB5448 /* APLSimpleCaretView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLSimpleCaretView.m; sourceTree = "<group>"; };
+		2CF3C3C221F2EA1F00EB5448 /* APLSimpleCoreTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLSimpleCoreTextView.m; sourceTree = "<group>"; };
+		2CF3C3C321F2EA1F00EB5448 /* APLSimpleCoreTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLSimpleCoreTextView.h; sourceTree = "<group>"; };
+		2CF3C3C521F3387300EB5448 /* RTInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTInputManager.swift; sourceTree = "<group>"; };
 		2CF8618121ECC23300FC0845 /* TextViewVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewVCViewController.swift; sourceTree = "<group>"; };
 		2CF8618221ECC23300FC0845 /* TextViewVCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewVCViewController.xib; sourceTree = "<group>"; };
 		2CF861AB21EDD4CC00FC0845 /* CTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTView.swift; sourceTree = "<group>"; };
@@ -78,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				2CE7091F21EC2F6E001E7274 /* AppDelegate.swift */,
+				2CF3C3C521F3387300EB5448 /* RTInputManager.swift */,
 				2CE7092121EC2F6E001E7274 /* ViewController.swift */,
 				2CE7092321EC2F6E001E7274 /* Main.storyboard */,
 				2CE7092621EC2F6F001E7274 /* Assets.xcassets */,
@@ -96,6 +105,10 @@
 				2CF3C3B921F0778900EB5448 /* RTView.swift */,
 				2CF3C3BB21F1BBF100EB5448 /* RTTextPosition.swift */,
 				2CF3C3BD21F1BC1200EB5448 /* RTTextRange.swift */,
+				2CF3C3BF21F2EA0700EB5448 /* APLSimpleCaretView.h */,
+				2CF3C3C021F2EA0700EB5448 /* APLSimpleCaretView.m */,
+				2CF3C3C321F2EA1F00EB5448 /* APLSimpleCoreTextView.h */,
+				2CF3C3C221F2EA1F00EB5448 /* APLSimpleCoreTextView.m */,
 			);
 			path = TestCoreText;
 			sourceTree = "<group>";
@@ -176,13 +189,16 @@
 			files = (
 				2CF3C3BA21F0778900EB5448 /* RTView.swift in Sources */,
 				2CF3C3B421EF5DAA00EB5448 /* CView.m in Sources */,
+				2CF3C3C421F2EA1F00EB5448 /* APLSimpleCoreTextView.m in Sources */,
 				2CF3C3BE21F1BC1200EB5448 /* RTTextRange.swift in Sources */,
 				2CF3C3BC21F1BBF200EB5448 /* RTTextPosition.swift in Sources */,
 				2CE7092221EC2F6E001E7274 /* ViewController.swift in Sources */,
 				2CF861AC21EDD4CC00FC0845 /* CTView.swift in Sources */,
 				2CF8618321ECC23300FC0845 /* TextViewVCViewController.swift in Sources */,
+				2CF3C3C121F2EA0700EB5448 /* APLSimpleCaretView.m in Sources */,
 				2CF3C3B721EF66C200EB5448 /* DViewController.swift in Sources */,
 				2CE7092021EC2F6E001E7274 /* AppDelegate.swift in Sources */,
+				2CF3C3C621F3387300EB5448 /* RTInputManager.swift in Sources */,
 				2CF3C3B121EF20D100EB5448 /* BView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
