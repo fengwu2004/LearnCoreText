@@ -72,6 +72,33 @@ class RTView: UIView, UITextInput {
   func deleteBackward() {
     
     print("deleteBackward")
+    
+    if markedRange.location != NSNotFound {
+      
+      self.text.deleteCharacters(in: markedRange)
+      
+      selectedRange = NSRange(location: markedRange.location, length: 0)
+      
+      markedRange = NSRange(location: NSNotFound, length: 0)
+    }
+    else if selectedRange.length > 0 {
+      
+      self.text.deleteCharacters(in: selectedRange)
+      
+      selectedRange.length = 0
+    }
+    else if selectedRange.location > 0 {
+      
+      let index = selectedRange.location - 1
+      
+      self.text.deleteCharacters(in: NSRange(location: index, length: 1))
+      
+      selectedRange.length = 0
+      
+      selectedRange.location = index
+    }
+    
+    self.setNeedsDisplay()
   }
   
   var textInputView: UIView {
@@ -123,8 +150,6 @@ class RTView: UIView, UITextInput {
   var markedTextStyle: [NSAttributedString.Key : Any]?
   
   func setMarkedText(_ markedText: String?, selectedRange: NSRange) {
-    
-    print(markedText, selectedRange)
     
     guard let text = markedText else {
       
@@ -224,12 +249,12 @@ class RTView: UIView, UITextInput {
   
   func firstRect(for range: UITextRange) -> CGRect {
     
-    return .zero
+    return CGRect(x: 10, y: 10, width: 100, height: 300)
   }
   
   func caretRect(for position: UITextPosition) -> CGRect {
     
-    return .zero
+    return CGRect(x: 10, y: 10, width: 3, height: 100)
   }
   
   func selectionRects(for range: UITextRange) -> [UITextSelectionRect] {
@@ -252,7 +277,6 @@ class RTView: UIView, UITextInput {
     return nil
   }
   
-  
   override func draw(_ rect: CGRect) {
     
     let ctx = getCtx()
@@ -261,7 +285,7 @@ class RTView: UIView, UITextInput {
   
     let frameSetter = CTFramesetterCreateWithAttributedString(mutablestring)
     
-    let path = CGPath(rect: self.bounds.inset(by: UIEdgeInsets(top: 100, left: 100, bottom: 200, right: 50)), transform: nil)
+    let path = CGPath(rect: self.bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)), transform: nil)
     
     let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), path, nil)
     

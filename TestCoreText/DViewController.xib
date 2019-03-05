@@ -22,7 +22,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7D-R1-jEj" customClass="RTView" customModule="TestCoreText" customModuleProvider="target">
                     <rect key="frame" x="53.5" y="176" width="268" height="335"/>
-                    <color key="backgroundColor" red="0.0" green="0.52941176469999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="335" id="k4Q-ia-4b8"/>
                         <constraint firstAttribute="width" constant="268" id="kjW-TV-Jd2"/>
